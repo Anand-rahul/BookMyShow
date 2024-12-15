@@ -29,8 +29,8 @@ public class MovieController {
         return movieService.updateMovie(movie);
     }
 
-    @GetMapping
-    public List<Movie> getMoviesByLocation(@RequestParam String city){
+    @GetMapping("/{city}")
+    public List<Movie> getMoviesByLocation(@PathVariable String city){
         return movieService.getMoviesByLocation(city);
     }
 }

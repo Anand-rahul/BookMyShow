@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ShowRepository extends JpaRepository<Show, Integer> {
-    @Query("SELECT s FROM Show s JOIN s.movie m JOIN m.locationIds l WHERE m.movieId = :movieId AND l.city = :city")
-    List<Show> findShowsByMovieIdAndCity(@Param("movieId") int movieId, @Param("city") String city);
+    /*@Query("SELECT s FROM Show s JOIN s.movie m JOIN s.screen sc JOIN sc.theatre t WHERE m.movieId = :movieId AND t.city = :city")
+    List<Show> findShowsByMovieIdAndCity(@Param("movieId") int movieId, @Param("city") String city);*/
 }
