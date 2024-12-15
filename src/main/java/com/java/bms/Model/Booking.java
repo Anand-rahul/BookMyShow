@@ -14,6 +14,8 @@ public class Booking {
     @ManyToOne
     private Show show;
 
+    private String status; // e.g., "PENDING", "CONFIRMED", "CANCELLED"
+
     @OneToMany
     private List<Seat> bookedSeats = new ArrayList<>();
 
@@ -21,7 +23,25 @@ public class Booking {
     private Payment payment;
 
     // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Foreign key column in Booking table
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
