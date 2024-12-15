@@ -7,6 +7,8 @@ import com.java.bms.dto.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -19,7 +21,11 @@ public class BookingController {
         return bookingService.createBooking(bookingRequest);
     }
     @GetMapping("/{bookingId}")
-    public BookingResponse getBookingDetails(@PathVariable Long bookingId) {
+    public BookingResponse getBookingDetailsById(@PathVariable Long bookingId) {
         return bookingService.getBookingDetails(bookingId);
+    }
+    @GetMapping
+    public List<BookingResponse> getAllBookingDetails(){
+        return bookingService.getAllBookingDetails();
     }
 }
