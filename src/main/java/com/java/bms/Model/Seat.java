@@ -14,7 +14,6 @@ public class Seat {
 
     // Getters and Setters
 
-
     public Seat(int seatId, int row, SeatCategory seatCategory) {
         this.seatId = seatId;
         this.row = row;
