@@ -1,26 +1,27 @@
 -- Corrected SQL Queries for Consistency
 
 -- Insert Locations
-INSERT INTO Location (id, city) VALUES (1, 'Bangalore');
-INSERT INTO Location (id, city) VALUES (2, 'Delhi');
-INSERT INTO Location (id, city) VALUES (3, 'Mumbai');
-INSERT INTO Location (id, city) VALUES (4, 'Chennai');
-INSERT INTO Location (id, city) VALUES (5, 'Kolkata');
-INSERT INTO Location (id, city) VALUES (6, 'Hyderabad');
-INSERT INTO Location (id, city) VALUES (7, 'Pune');
-INSERT INTO Location (id, city) VALUES (8, 'Ahmedabad');
-INSERT INTO Location (id, city) VALUES (9, 'Jaipur');
-INSERT INTO Location (id, city) VALUES (10, 'Lucknow');
-INSERT INTO Location (id, city) VALUES (11, 'Patna');
-INSERT INTO Location (id, city) VALUES (12, 'Indore');
-INSERT INTO Location (id, city) VALUES (13, 'Surat');
-INSERT INTO Location (id, city) VALUES (14, 'Bhopal');
-INSERT INTO Location (id, city) VALUES (15, 'Ranchi');
-INSERT INTO Location (id, city) VALUES (16, 'Coimbatore');
-INSERT INTO Location (id, city) VALUES (17, 'Vijayawada');
-INSERT INTO Location (id, city) VALUES (18, 'Goa');
-INSERT INTO Location (id, city) VALUES (19, 'Trivandrum');
-INSERT INTO Location (id, city) VALUES (20, 'Dehradun');
+INSERT INTO Location (id, city, icon, popular) VALUES (1, 'Bangalore', NULL, true);
+INSERT INTO Location (id, city, icon, popular) VALUES (2, 'Delhi', NULL, true);
+INSERT INTO Location (id, city, icon, popular) VALUES (3, 'Mumbai', NULL, true);
+INSERT INTO Location (id, city, icon, popular) VALUES (4, 'Chennai', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (5, 'Kolkata', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (6, 'Hyderabad', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (7, 'Pune', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (8, 'Ahmedabad', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (9, 'Jaipur', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (10, 'Lucknow', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (11, 'Patna', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (12, 'Indore', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (13, 'Surat', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (14, 'Bhopal', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (15, 'Ranchi', NULL,false);
+INSERT INTO Location (id, city, icon, popular) VALUES (16, 'Coimbatore', NULL,false);
+INSERT INTO Location (id, city, icon, popular) VALUES (17, 'Vijayawada', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (18, 'Goa', NULL, false);
+INSERT INTO Location (id, city, icon, popular) VALUES (19, 'Trivandrum', NULL,false);
+INSERT INTO Location (id, city, icon, popular) VALUES (20, 'Dehradun', NULL, false);
+
 
 -- Insert Movies
 INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('AVENGERS', 128);
