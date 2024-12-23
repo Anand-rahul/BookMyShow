@@ -10,6 +10,32 @@ public class Location {
     public Integer id;
 
     public String city;
+    public String icon;
+    public boolean popular;
+
+    public Location(Integer id, String city, String icon, boolean isPopular) {
+        this.id = id;
+        this.city = city;
+        this.icon = icon;
+        this.popular = isPopular;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public boolean isPopular() {
+        return popular;
+    }
+
+    public void setPopular(boolean popular) {
+        this.popular = popular;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -26,10 +52,6 @@ public class Location {
         this.city = city;
     }
 
-    public Location(Integer id, String city) {
-        this.id = id;
-        this.city = city;
-    }
 
     public Location() {
     }
