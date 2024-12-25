@@ -24,26 +24,48 @@ INSERT INTO Location (id, city, icon, popular) VALUES (20, 'Dehradun', NULL, fal
 
 
 -- Insert Movies
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('AVENGERS', 128);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BAAHUBALI', 180);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('INCEPTION', 148);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('INTERSTELLAR', 169);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('THE-DARK-KNIGHT', 152);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('FAST-X', 140);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('MISSION IMPOSSIBLE', 150);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('SPIDERMAN', 130);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('JOKER', 122);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('TOP-GUN', 145);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BLACK-ADAM', 135);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('DUNE', 155);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('TENET', 150);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('DOCTOR-STRANGE', 126);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('NO-TIME-TO-DIE', 163);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('JURASSIC-WORLD', 147);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('MATRIX-RESURRECTIONS', 148);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('THE-BATMAN', 175);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('SHAZAM', 132);
-INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BLACK-PANTHER', 134);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('AVENGERS', 128);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BAAHUBALI', 180);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('INCEPTION', 148);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('INTERSTELLAR', 169);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('THE-DARK-KNIGHT', 152);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('FAST-X', 140);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('MISSION IMPOSSIBLE', 150);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('SPIDERMAN', 130);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('JOKER', 122);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('TOP-GUN', 145);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BLACK-ADAM', 135);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('DUNE', 155);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('TENET', 150);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('DOCTOR-STRANGE', 126);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('NO-TIME-TO-DIE', 163);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('JURASSIC-WORLD', 147);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('MATRIX-RESURRECTIONS', 148);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('THE-BATMAN', 175);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('SHAZAM', 132);
+--INSERT INTO Movie (movie_name, movie_duration_in_minutes) VALUES ('BLACK-PANTHER', 134);
+
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('AVENGERS', 128, 'https://imgc.allpostersimages.com/img/posters/trends-international-24x36-marvel-avengers-endgame-one-sheet_u-l-q1s2cks0.jpg?artHeight=550&artPerspective=y&artWidth=550&background=ffffff', 8.4, '2.3M', 'Action, Sci-Fi', 'Earths mightiest heroes...', ARRAY ['Robert Downey Jr.', 'Chris Evans', 'Scarlett Johansson']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('BAAHUBALI', 180, 'https://posters.movieposterdb.com/15_08/2015/2631186/l_2631186_c8f6b550.jpg', 8.0, '1.5M', 'Action, Drama', 'The epic story of Mahishmati...', ARRAY [ 'Prabhas', 'Rana Daggubati', 'Anushka Shetty']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('INCEPTION', 148, 'https://www.movieposters.com/cdn/shop/products/7dfddd911b8040729896c5be83f8e139_6e2f4149-8cb4-414c-a33b-9e0065c55af3_480x.progressive.jpg?v=1573585216', 8.8, '3.2M', 'Sci-Fi, Thriller', 'A thief who enters peoples dreams...', ARRAY ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Ellen Page']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('INTERSTELLAR', 169, 'https://posters.movieposterdb.com/14_09/2014/816692/l_816692_593eaeff.jpg', 8.6, '2.9M', 'Adventure, Sci-Fi', 'A journey beyond the stars...', ARRAY ['Matthew McConaughey', 'Anne Hathaway', 'Jessica Chastain']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('THE-DARK-KNIGHT', 152, 'https://posters.movieposterdb.com/08_06/2008/468569/s_468569_fe24b125.jpg', 9.0, '3.8M', 'Action, Crime', 'Batman battles the Joker...', ARRAY ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('FAST-X', 140, 'https://posters.movieposterdb.com/23_06/2023/5433140/s_fast-x-movie-poster_ab07f49f.jpg', 7.0, '1.1M', 'Action, Thriller', 'The Fast saga continues...', ARRAY ['Vin Diesel', 'Jason Statham', 'Michelle Rodriguez']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('MISSION IMPOSSIBLE', 150, 'https://posters.movieposterdb.com/15_04/2015/2381249/s_2381249_776d8196.jpg', 7.8, '1.8M', 'Action, Adventure', 'Ethan Hunt on another mission...', ARRAY ['Tom Cruise', 'Simon Pegg', 'Ving Rhames']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('SPIDERMAN', 130, 'https://posters.movieposterdb.com/22_11/2000/258979/s_spider-man-movie-poster_aa92f2d0.jpg', 7.9, '1.9M', 'Action, Fantasy', 'A boy becomes a spider superhero...', ARRAY ['Tobey Maguire', 'Kirsten Dunst', 'James Franco']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('JOKER', 122, 'https://posters.movieposterdb.com/22_05/2019/7286456/s_7286456_b64564c5.jpg', 8.4, '3.5M', 'Crime, Drama', 'The origin story of the Joker...', ARRAY ['Joaquin Phoenix', 'Robert De Niro', 'Zazie Beetz']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('TOP-GUN', 145, 'https://posters.movieposterdb.com/22_05/2020/1745960/s_1745960_cc176006.jpg', 7.5, '1.6M', 'Action, Drama', 'The story of an elite fighter pilot...', ARRAY ['Tom Cruise', 'Val Kilmer', 'Kelly McGillis']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('BLACK-ADAM', 135, 'https://posters.movieposterdb.com/22_09/2022/6443346/s_6443346_7b78199e.jpeg', 6.5, '0.8M', 'Action, Fantasy', 'Black Adam emerges as an antihero...', ARRAY ['Dwayne Johnson', 'Pierce Brosnan', 'Noah Centineo']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('DUNE', 155, 'https://posters.movieposterdb.com/21_08/2021/1160419/s_1160419_565d3d10.jpg', 8.2, '2.1M', 'Adventure, Sci-Fi', 'The story of Paul Atreides...', ARRAY ['Timothée Chalamet', 'Rebecca Ferguson', 'Oscar Isaac']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('TENET', 150, 'https://posters.movieposterdb.com/20_09/2020/6723592/s_6723592_46561c38.jpg', 7.5, '1.7M', 'Action, Sci-Fi', 'A time-bending espionage mission...', ARRAY ['John David Washington', 'Robert Pattinson', 'Elizabeth Debicki']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('DOCTOR-STRANGE', 126, 'https://posters.movieposterdb.com/20_08/2013/1211837/s_1211837_b473cc46.jpg', 7.5, '2.0M', 'Action, Fantasy', 'A neurosurgeon turned sorcerer...', ARRAY ['Benedict Cumberbatch', 'Tilda Swinton', 'Chiwetel Ejiofor']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('NO-TIME-TO-DIE', 163, 'https://posters.movieposterdb.com/09_05/2006/899070/s_899070_fe57f700.jpg', 7.3, '1.2M', 'Action, Adventure', 'James Bond faces his past...', ARRAY ['Daniel Craig', 'Rami Malek', 'Léa Seydoux']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('JURASSIC-WORLD', 147, 'https://img.moviepostershop.com/jurassic-park-movie-poster-1992-1010141477.jpg', 7.0, '2.5M', 'Action, Sci-Fi', 'Dinosaurs roam the Earth again...', ARRAY ['Chris Pratt', 'Bryce Dallas Howard', 'Vincent D Onofrio']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('MATRIX-RESURRECTIONS', 148, 'https://posters.movieposterdb.com/22_10/1993/106062/s_matrix-movie-poster_24ff14fa.jpg', 6.6, '0.9M', 'Action, Sci-Fi', 'The Matrix returns...', ARRAY ['Keanu Reeves', 'Carrie-Anne Moss', 'Yahya Abdul-Mateen II']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('THE-BATMAN', 175, 'https://posters.movieposterdb.com/14_10/1989/96895/s_96895_78c0479e.jpg', 8.3, '2.7M', 'Action, Crime', 'A young Batman investigates...', ARRAY ['Robert Pattinson', 'Zoë Kravitz', 'Paul Dano']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('SHAZAM', 132, 'https://posters.movieposterdb.com/20_01/2019/448115/s_448115_dfc6c3a2.jpg', 7.1, '1.4M', 'Action, Comedy', 'A boy gains superhero powers...', ARRAY ['Zachary Levi', 'Mark Strong', 'Asher Angel']);
+INSERT INTO Movie (    movie_name,    movie_duration_in_minutes,    poster_url,    rating,    votes,    genre,    description,    casts)VALUES('BLACK-PANTHER', 134, 'https://posters.movieposterdb.com/22_06/2018/1825683/s_1825683_d608586c.jpg', 7.8, '2.3M', 'Action, Adventure', 'A prince becomes a superhero...', ARRAY ['Chadwick Boseman', 'Michael B. Jordan', 'Lupita Nyongo']);
+
 
 -- Insert Movie-Location Mapping
 INSERT INTO movie_location (movie_id, location_id) VALUES (1, 1);

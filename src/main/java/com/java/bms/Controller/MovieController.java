@@ -33,4 +33,9 @@ public class MovieController {
     public List<Movie> getMoviesByLocation(@PathVariable String city){
         return movieService.getMoviesByLocation(city);
     }
+
+    @GetMapping("/id/{movieId}")
+    public Movie getMovieById(@PathVariable Integer movieId){
+        return movieService.getMovieById(movieId);
+    }
 }
