@@ -18,4 +18,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     @Query("SELECT m FROM Movie m JOIN m.locationIds l WHERE l.city = :city")
     List<Movie> findMoviesByCity(@Param("city") String city);
+
+    @Query("SELECT m FROM Movie m WHERE m.movieId=:movieId")
+    Movie findMovieById(@Param("movieId") Integer movieId);
 }

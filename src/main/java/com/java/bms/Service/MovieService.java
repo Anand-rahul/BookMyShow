@@ -46,4 +46,8 @@ public class MovieService {
     public List<Movie> getMoviesByLocation(String city) {
         return movieRepository.findMoviesByCity(city);
     }
+
+    public Movie getMovieById(Integer movieId){
+        return movieRepository.findMovieById(movieId);
+    }
 }
