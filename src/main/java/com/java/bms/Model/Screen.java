@@ -1,10 +1,14 @@
 package com.java.bms.Model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 public class Screen {
     @Id
@@ -17,27 +21,19 @@ public class Screen {
     // Getters and Setters
 
 
-    public int getScreenId() {
-        return screenId;
-    }
-
-    public void setScreenId(int screenId) {
-        this.screenId = screenId;
-    }
-
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
-    }
-
     public Screen(int screenId, List<Seat> seats) {
         this.screenId = screenId;
         this.seats = seats;
     }
     public Screen(){
 
+    }
+
+    @Override
+    public String toString() {
+        return "Screen{" +
+                "screenId=" + screenId +
+                ", seats=" + seats +
+                '}';
     }
 }
