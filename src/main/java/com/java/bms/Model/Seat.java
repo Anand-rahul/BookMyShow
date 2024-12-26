@@ -13,6 +13,32 @@ public class Seat {
     private SeatCategory seatCategory;
 
     // Getters and Setters
+    private String priceCategory;
+    private String seatNumber;
+    private double price;
+    public String getPriceCategory() {
+        return priceCategory;
+    }
+
+    public void setPriceCategory(String priceCategory) {
+        this.priceCategory = priceCategory;
+    }
+
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Seat(int seatId, int row, SeatCategory seatCategory) {
         this.seatId = seatId;

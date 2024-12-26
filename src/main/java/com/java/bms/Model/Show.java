@@ -75,4 +75,15 @@ public class Show {
     public void setBookedSeatIds(List<Integer> bookedSeatIds) {
         this.bookedSeatIds = bookedSeatIds;
     }
+
+    @Override
+    public String toString() {
+        return "Show{" +
+                "showId=" + showId +
+                ", movie=" + movie +
+                ", screen=" + screen +
+                ", showStartTime=" + showStartTime +
+                ", bookedSeatIds=" + bookedSeatIds +
+                '}';
+    }
 }
