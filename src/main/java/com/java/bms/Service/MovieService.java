@@ -6,6 +6,8 @@ import com.java.bms.Repository.LocationRepository;
 import com.java.bms.Repository.MovieRepository;
 import org.hibernate.metamodel.mapping.internal.MutableAttributeMappingList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -49,5 +51,9 @@ public class MovieService {
 
     public Movie getMovieById(Integer movieId){
         return movieRepository.findMovieById(movieId);
+    }
+
+    public Page<Movie> getAllMoviesPaginated(Pageable pageable) {
+        return movieRepository.findAll(pageable);
     }
 }

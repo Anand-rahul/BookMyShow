@@ -1,15 +1,12 @@
 package com.java.bms.Service;
 
-import com.java.bms.Model.Movie;
-import com.java.bms.Model.Show;
 import com.java.bms.Model.Theatre;
 import com.java.bms.Repository.TheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class TheatreService {
@@ -29,5 +26,8 @@ public class TheatreService {
                 .filter(theatre -> theatre.getShows().stream()
                         .anyMatch(show -> movie.equals(show.getMovie().getMovieName())))
                 .toList();
+    }
+    public Optional<Theatre> fetchTheatreById(int theatreId){
+        return theatreRepository.findById(theatreId);
     }
 }

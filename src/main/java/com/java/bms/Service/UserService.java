@@ -4,6 +4,8 @@ import com.java.bms.Misc.PasswordUtil;
 import com.java.bms.Model.User;
 import com.java.bms.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +61,9 @@ public class UserService {
     // Delete user
     public void deleteUserById(int id) {
         userRepository.deleteById(id);
+    }
+
+    public Page<User> fetchAllUsersPaginated(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }
