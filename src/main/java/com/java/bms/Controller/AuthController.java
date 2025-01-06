@@ -34,7 +34,7 @@ public class AuthController {
     @Value("${google.client.secret}")private String GOOGLE_CLIENT_SECRET;
     private static final String GOOGLE_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
     private static final String GOOGLE_USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
-    private static final String GOOGLE_REDIRECT_URI="http://localhost:3000/api/auth/google/callback";
+    private static final String GOOGLE_REDIRECT_URI="http://localhost:8080/api/auth/google/callback";
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
