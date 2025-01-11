@@ -28,7 +28,7 @@ public class BookingController {
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest bookingRequest) throws InterruptedException {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(bookingService.createBooking(bookingRequest));
     }

@@ -15,10 +15,8 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int screenId;
 
-    @OneToMany
+    @ManyToMany
     private List<Seat> seats = new ArrayList<>();
-
-    // Getters and Setters
 
 
     public Screen(int screenId, List<Seat> seats) {

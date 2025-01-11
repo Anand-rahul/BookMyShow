@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +45,7 @@ public class ShowService {
         }
 
         return screen.getSeats().stream()
-                .filter(seat -> !bookedSeatIds.contains(seat.getSeatId()))
+                .filter(seat -> !bookedSeatIds.contains(seat.getId()))
                 .collect(Collectors.toList());
     }
 
@@ -71,7 +70,7 @@ public class ShowService {
             String categoryName = seat.getPriceCategory();
             categoryMap.putIfAbsent(categoryName, new PriceCategory(categoryName, seat.getPrice(), "available"));
 
-            if (bookedSeatIds.contains(seat.getSeatId())) {
+            if (bookedSeatIds.contains(seat.getId())) {
                 categoryMap.get(categoryName).setStatus("filling");
             }
         }

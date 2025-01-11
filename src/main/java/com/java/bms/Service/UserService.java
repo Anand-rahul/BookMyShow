@@ -27,11 +27,15 @@ public class UserService {
 
     // Create a new user with password encryption
     public User createNewUser(User user) {
-        // Encrypt the password before saving
-        String encryptedPassword = passwordUtil.encryptPassword(user.getPassword());
-        user.setPassword(encryptedPassword);
-        return userRepository.save(user);
+        if (userRepository.fetchByUserName(user.getUserName()) == null) {
+            String encryptedPassword = passwordUtil.encryptPassword(user.getPassword());
+            user.setPassword(encryptedPassword);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User already exists");
+        }
     }
+
 
     // Fetch all users
     public List<User> fetchAllUsers() {
