@@ -10,15 +10,17 @@ import com.java.bms.dto.BookingRequest;
 import com.java.bms.dto.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.StampedLock;
 import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
-
+    private final StampedLock stampedLock = new StampedLock();
     @Autowired
     private ShowRepository showRepository;
 
@@ -50,9 +52,34 @@ public class BookingService {
                 show.getMovie().getMovieDurationInMinutes()
         );
     }
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public Booking createBooking(BookingRequest bookingRequest) throws InterruptedException {
-        // Fetch the Show
+        int maxRetries = 3;
+        int attempts = 0;
+
+        while (attempts < maxRetries) {
+            // Get an optimistic read stamp
+            long stamp = stampedLock.tryOptimisticRead();
+            try {
+                Booking booking = tryCreateBooking(bookingRequest, stamp);
+                // Validate if the stamp is still valid
+                if (stampedLock.validate(stamp)) {
+                    return booking;
+                }
+            } catch (Exception e) {
+                attempts++;
+                if (attempts == maxRetries) {
+                    throw new RuntimeException("Unable to create booking due to concurrent modifications. Please try again.");
+                }
+                // Add small random delay before retry
+                Thread.sleep((long) (Math.random() * 1000));
+            }
+        }
+        throw new RuntimeException("Booking creation failed after " + maxRetries + " attempts");
+    }
+
+    private Booking tryCreateBooking(BookingRequest bookingRequest, long stamp) {
+        // First attempt with optimistic read
         Show show = showRepository.findById(bookingRequest.getShowId())
                 .orElseThrow(() -> new RuntimeException("Show not found"));
 
@@ -61,57 +88,79 @@ public class BookingService {
                 .map(Seat::getId)
                 .toList();
 
-        // Validate Requested Seat IDs
+        // Validate seat existence
         List<Integer> requestedSeats = bookingRequest.getSeatIds();
+        validateSeatExistence(requestedSeats, availableSeatIds);
+
+        // If the stamp is no longer valid, convert to write lock
+        if (!stampedLock.validate(stamp)) {
+            // Release optimistic read and acquire write lock
+            long writeLock = stampedLock.writeLock();
+            try {
+                // Re-validate everything under write lock
+                show = showRepository.findById(bookingRequest.getShowId())
+                        .orElseThrow(() -> new RuntimeException("Show not found"));
+                validateSeatExistence(requestedSeats, availableSeatIds);
+
+                return processBookingUnderLock(show, requestedSeats, bookingRequest);
+            } finally {
+                stampedLock.unlockWrite(writeLock);
+            }
+        }
+
+        // If stamp is still valid, proceed with optimistic read
+        return processBookingUnderLock(show, requestedSeats, bookingRequest);
+    }
+
+    private void validateSeatExistence(List<Integer> requestedSeats, List<Integer> availableSeatIds) {
         for (Integer seatId : requestedSeats) {
             if (!availableSeatIds.contains(seatId)) {
                 throw new RuntimeException("Seat " + seatId + " does not exist in the screen.");
             }
         }
+    }
 
-        // Lock and Validate Seats
-        List<Seat> lockedSeats = new ArrayList<>();
-        for (Integer seatId : requestedSeats) {
-            Seat seat = seatRepository.lockSeatById(seatId);
+    private Booking processBookingUnderLock(Show show, List<Integer> requestedSeats,
+                                            BookingRequest bookingRequest) {
+        // Fetch and validate seats
+        List<Seat> selectedSeats = seatRepository.findAllById(requestedSeats);
+        for (Seat seat : selectedSeats) {
             if (seat.isBooked()) {
-                throw new RuntimeException("Seat " + seatId + " is already booked.");
+                throw new RuntimeException("Seat " + seat.getId() + " is already booked.");
             }
-            lockedSeats.add(seat);
         }
 
-        // Calculate Payment Amount
-        double totalAmount = lockedSeats.stream()
+        // Calculate payment
+        double totalAmount = selectedSeats.stream()
                 .mapToDouble(seat -> getSeatPrice(seat.getSeatCategory()))
                 .sum();
 
-        // **Integrate Payment Gateway** (Placeholder for Razorpay)
-    /*Payment payment = initiatePayment(totalAmount, bookingRequest);
+        try {
+            // Simulate payment processing
+            Thread.sleep(60000);
 
-    if (!payment.isPaymentSuccessful()) {
-        throw new RuntimeException("Payment failed. Please try again.");
-    }*/
-        Thread.sleep(60000);
-        // Mark seats as booked after successful payment
-        for (Seat seat : lockedSeats) {
-            seat.setBooked(true);
-            seatRepository.save(seat);
+            // Mark seats as booked
+            selectedSeats.forEach(seat -> seat.setBooked(true));
+            seatRepository.saveAll(selectedSeats);
+
+            show.getBookedSeatIds().addAll(requestedSeats);
+            showRepository.save(show);
+
+            // Fetch user and create booking
+            User user = userRepository.findById(bookingRequest.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            Booking booking = new Booking();
+            booking.setShow(show);
+            booking.setUser(user);
+            booking.setBookedSeats(selectedSeats);
+            booking.setStatus("SUCCESS");
+
+            return bookingRepository.save(booking);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Booking process was interrupted");
         }
-        show.getBookedSeatIds().addAll(requestedSeats);
-        showRepository.save(show);
-
-        // Fetch the User
-        User user = userRepository.findById(bookingRequest.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Create Booking Entity
-        Booking booking = new Booking();
-        booking.setShow(show);
-        booking.setUser(user);
-        booking.setBookedSeats(lockedSeats);
-        booking.setStatus("SUCCESS");
-        //booking.setPayment(payment);
-
-        return bookingRepository.save(booking);
     }
 
     public List<BookingResponse> getAllBookingDetails() {
