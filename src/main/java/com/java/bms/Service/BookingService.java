@@ -9,6 +9,8 @@ import com.java.bms.Repository.UserRepository;
 import com.java.bms.dto.BookingRequest;
 import com.java.bms.dto.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.util.concurrent.locks.StampedLock;
 import java.util.stream.Collectors;
 
 @Service
+
 public class BookingService {
     private final StampedLock stampedLock = new StampedLock();
     @Autowired
@@ -137,7 +140,7 @@ public class BookingService {
 
         try {
             // Simulate payment processing
-            Thread.sleep(60000);
+            Thread.sleep(1000);
 
             // Mark seats as booked
             selectedSeats.forEach(seat -> seat.setBooked(true));

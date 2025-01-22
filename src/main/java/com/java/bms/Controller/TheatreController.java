@@ -1,5 +1,6 @@
 package com.java.bms.Controller;
 
+import com.java.bms.ExceptionHandler.TheatreNotFoundException;
 import com.java.bms.Model.Theatre;
 import com.java.bms.Service.TheatreService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,43 +18,93 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 @RestController
 @RequestMapping("/theatres")
 @Tag(name = "Theatre Management")
 @Validated
+@Slf4j
 public class TheatreController {
 
     @Autowired
     private TheatreService theatreService;
 
+    @Autowired
+    private Executor asyncExecutor;
+
     @Operation(summary = "Get all theatres")
     @GetMapping("/all")
-    public ResponseEntity<List<Theatre>> getAllTheatres() {
-        return ResponseEntity.ok(theatreService.getAllTheatres());
+    public CompletableFuture<ResponseEntity<List<Theatre>>> getAllTheatres() {
+        return theatreService.getAllTheatres()
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(ex -> {
+                    log.error("Error fetching all theatres", ex);
+                    return ResponseEntity
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .build();
+                });
     }
 
     @Operation(summary = "Add new theatre")
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Theatre> addTheatre(@Valid @RequestBody Theatre theatre) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(theatreService.saveTheatre(theatre));
+    public CompletableFuture<ResponseEntity<Theatre>> addTheatre(
+            @Valid @RequestBody Theatre theatre) {
+        return theatreService.saveTheatre(theatre)
+                .thenApply(savedTheatre ->
+                        ResponseEntity
+                                .status(HttpStatus.CREATED)
+                                .body(savedTheatre))
+                .exceptionally(ex -> {
+                    log.error("Error saving theatre", ex);
+                    return ResponseEntity
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .build();
+                });
     }
-
 
     @Operation(summary = "Get theatres by city and movie")
     @GetMapping("/fetch-by-city")
-    public ResponseEntity<List<Theatre>> getTheatresByCity(
+    public CompletableFuture<ResponseEntity<List<Theatre>>> getTheatresByCity(
             @RequestParam @NotBlank String city,
             @RequestParam @NotBlank String movie) {
-        return ResponseEntity.ok(theatreService.fetchTheatresByCity(city, movie));
+
+        log.info("Request received to fetch theatres for city: {} and movie: {}", city, movie);
+
+        return theatreService.fetchTheatresByCity(city, movie)
+                .thenApply(theatres -> {
+                    log.info("Successfully fetched {} theatres for city: {} and movie: {}",
+                            theatres.size(), city, movie);
+                    return ResponseEntity.ok(theatres);
+                })
+                .exceptionally(ex -> {
+                    log.error("Error fetching theatres by city: {} and movie: {}. Exception: {}",
+                            city, movie, ex.getMessage(), ex);
+                    return ResponseEntity
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .build();
+                });
     }
+
     @Operation(summary = "Get theatre by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Theatre> getTheatreDetails(@PathVariable @Positive int id) throws Exception {
+    public CompletableFuture<ResponseEntity<Theatre>> getTheatreDetails(
+            @PathVariable @Positive int id) {
+
         return theatreService.fetchTheatreById(id)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new Exception("Theatre not found with id: " + id));
+                .thenApply(optionalTheatre -> optionalTheatre
+                        .map(theatre -> {
+                            log.info("Successfully fetched theatre with ID: {}", id);
+                            return ResponseEntity.ok(theatre);
+                        })
+                        .orElseGet(() -> {
+                            log.warn("Theatre not found with ID: {}", id);
+                            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                        }))
+                .exceptionally(ex -> {
+                    log.error("Error fetching theatre by ID: {}", id, ex);
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                });
     }
 }
