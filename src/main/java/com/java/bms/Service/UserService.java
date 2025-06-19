@@ -53,11 +53,12 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + updatedUser.getId()));
 
         existingUser.setUserName(updatedUser.getUserName());
+        existingUser.setMobile(updatedUser.getMobile());
+        existingUser.setEmailId(updatedUser.getEmailId());
+
         if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
             // Encrypt the new password
             existingUser.setPassword(passwordUtil.encryptPassword(updatedUser.getPassword()));
-            existingUser.setMobile(updatedUser.getMobile());
-            existingUser.setEmailId(updatedUser.getEmailId());
         }
         return userRepository.save(existingUser);
     }
